@@ -18,4 +18,6 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   has_secure_password
+  has_many(:gigs, { :class_name => "Gig", :foreign_key => "user_id", :dependent => :destroy })
+  has_many(:messages, { :class_name => "Message", :foreign_key => "user_id", :dependent => :destroy })
 end
