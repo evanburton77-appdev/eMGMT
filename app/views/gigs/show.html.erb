@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      Gig #<%= @the_gig.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/gigs">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_gig/<%= @the_gig.id %>">
+          Delete gig
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Title
+      </dt>
+      <dd>
+        <%= @the_gig.title %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_gig.user_id %>
+      </dd>
+
+      <dt>
+        Agent
+      </dt>
+      <dd>
+        <%= @the_gig.agent_id %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_gig.description %>
+      </dd>
+
+      <dt>
+        Industry
+      </dt>
+      <dd>
+        <%= @the_gig.industry %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_gig.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_gig.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit gig
+    </h2>
+
+    <form action="/modify_gig/<%= @the_gig.id %>"  method="post" >
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title" value="<%= @the_gig.title %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_gig.user_id %>">
+      </div>
+
+      <div>
+        <label for="agent_id_box">
+          Agent
+        </label>
+
+        <input type="text" id="agent_id_box" name="query_agent_id" value="<%= @the_gig.agent_id %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_gig.description %>">
+      </div>
+
+      <div>
+        <label for="industry_box">
+          Industry
+        </label>
+
+        <input type="text" id="industry_box" name="query_industry" value="<%= @the_gig.industry %>">
+      </div>
+
+      <button>
+        Update gig
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

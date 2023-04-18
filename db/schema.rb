@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_18_154737) do
+ActiveRecord::Schema.define(version: 2023_04_18_154915) do
 
   create_table "agents", force: :cascade do |t|
     t.string "email"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2023_04_18_154737) do
     t.string "about"
     t.integer "messages_count"
     t.integer "gigs_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "gigs", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id"
+    t.integer "agent_id"
+    t.string "description"
+    t.string "industry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

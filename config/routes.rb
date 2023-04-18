@@ -2,6 +2,25 @@ Rails.application.routes.draw do
 
 
 
+  # Routes for the Gig resource:
+
+  # CREATE
+  post("/insert_gig", { :controller => "gigs", :action => "create" })
+          
+  # READ
+  get("/gigs", { :controller => "gigs", :action => "index" })
+  
+  get("/gigs/:path_id", { :controller => "gigs", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_gig/:path_id", { :controller => "gigs", :action => "update" })
+  
+  # DELETE
+  get("/delete_gig/:path_id", { :controller => "gigs", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Agent account:
 
   # SIGN UP FORM

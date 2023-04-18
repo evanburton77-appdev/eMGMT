@@ -1,0 +1,150 @@
+<div>
+  <div>
+    <h1>
+      List of all gigs
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new gig
+    </h2>
+
+    <form action="/insert_gig" method="post">
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="agent_id_box">
+          Agent
+        </label>
+
+        <input type="text" id="agent_id_box" name="query_agent_id">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+      <div>
+        <label for="industry_box">
+          Industry
+        </label>
+
+        <input type="text" id="industry_box" name="query_industry">
+      </div>
+
+      <button>
+        Create gig
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Title
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Agent
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Industry
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_gigs.each do |a_gig| %>
+      <tr>
+        <td>
+          <%= a_gig.id %>
+        </td>
+
+        <td>
+          <%= a_gig.title %>
+        </td>
+
+        <td>
+          <%= a_gig.user_id %>
+        </td>
+
+        <td>
+          <%= a_gig.agent_id %>
+        </td>
+
+        <td>
+          <%= a_gig.description %>
+        </td>
+
+        <td>
+          <%= a_gig.industry %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_gig.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_gig.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/gigs/<%= a_gig.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
