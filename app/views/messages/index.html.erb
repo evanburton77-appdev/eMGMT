@@ -1,0 +1,194 @@
+<div>
+  <div>
+    <h1>
+      List of all messages
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new message
+    </h2>
+
+    <form action="/insert_message" method="post">
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="agent_id_box">
+          Agent
+        </label>
+
+        <input type="text" id="agent_id_box" name="query_agent_id">
+      </div>
+
+      <div>
+        <label for="content_box">
+          Content
+        </label>
+
+        <input type="text" id="content_box" name="query_content">
+      </div>
+
+      <div>
+        <label for="subject_box">
+          Subject
+        </label>
+
+        <input type="text" id="subject_box" name="query_subject">
+      </div>
+
+      <div>
+        <input type="checkbox" id="read_receipt_user_box" name="query_read_receipt_user" value="1">
+
+        <label for="read_receipt_user_box">Read receipt user</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="read_receipt_manager_box" name="query_read_receipt_manager" value="1">
+
+        <label for="read_receipt_manager_box">Read receipt manager</label>
+      </div>
+
+      <div>
+        <label for="reaction_user_box">
+          Reaction user
+        </label>
+
+        <input type="text" id="reaction_user_box" name="query_reaction_user">
+      </div>
+
+      <div>
+        <label for="reaction_manager_box">
+          Reaction manager
+        </label>
+
+        <input type="text" id="reaction_manager_box" name="query_reaction_manager">
+      </div>
+
+      <button>
+        Create message
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Agent
+        </th>
+
+        <th>
+          Content
+        </th>
+
+        <th>
+          Subject
+        </th>
+
+        <th>
+          Read receipt user
+        </th>
+
+        <th>
+          Read receipt manager
+        </th>
+
+        <th>
+          Reaction user
+        </th>
+
+        <th>
+          Reaction manager
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_messages.each do |a_message| %>
+      <tr>
+        <td>
+          <%= a_message.id %>
+        </td>
+
+        <td>
+          <%= a_message.user_id %>
+        </td>
+
+        <td>
+          <%= a_message.agent_id %>
+        </td>
+
+        <td>
+          <%= a_message.content %>
+        </td>
+
+        <td>
+          <%= a_message.subject %>
+        </td>
+
+        <td>
+          <%= a_message.read_receipt_user %>
+        </td>
+
+        <td>
+          <%= a_message.read_receipt_manager %>
+        </td>
+
+        <td>
+          <%= a_message.reaction_user %>
+        </td>
+
+        <td>
+          <%= a_message.reaction_manager %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_message.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_message.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/messages/<%= a_message.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

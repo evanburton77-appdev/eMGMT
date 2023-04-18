@@ -1,0 +1,176 @@
+<div>
+  <div>
+    <h1>
+      Message #<%= @the_message.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/messages">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_message/<%= @the_message.id %>">
+          Delete message
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_message.user_id %>
+      </dd>
+
+      <dt>
+        Agent
+      </dt>
+      <dd>
+        <%= @the_message.agent_id %>
+      </dd>
+
+      <dt>
+        Content
+      </dt>
+      <dd>
+        <%= @the_message.content %>
+      </dd>
+
+      <dt>
+        Subject
+      </dt>
+      <dd>
+        <%= @the_message.subject %>
+      </dd>
+
+      <dt>
+        Read receipt user
+      </dt>
+      <dd>
+        <%= @the_message.read_receipt_user %>
+      </dd>
+
+      <dt>
+        Read receipt manager
+      </dt>
+      <dd>
+        <%= @the_message.read_receipt_manager %>
+      </dd>
+
+      <dt>
+        Reaction user
+      </dt>
+      <dd>
+        <%= @the_message.reaction_user %>
+      </dd>
+
+      <dt>
+        Reaction manager
+      </dt>
+      <dd>
+        <%= @the_message.reaction_manager %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_message.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_message.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit message
+    </h2>
+
+    <form action="/modify_message/<%= @the_message.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_message.user_id %>">
+      </div>
+
+      <div>
+        <label for="agent_id_box">
+          Agent
+        </label>
+
+        <input type="text" id="agent_id_box" name="query_agent_id" value="<%= @the_message.agent_id %>">
+      </div>
+
+      <div>
+        <label for="content_box">
+          Content
+        </label>
+
+        <input type="text" id="content_box" name="query_content" value="<%= @the_message.content %>">
+      </div>
+
+      <div>
+        <label for="subject_box">
+          Subject
+        </label>
+
+        <input type="text" id="subject_box" name="query_subject" value="<%= @the_message.subject %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="read_receipt_user_box" name="query_read_receipt_user" value="1" <%= "checked" if @the_message.read_receipt_user %>>
+
+        <label for="read_receipt_user_box">
+            Read receipt user
+        </label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="read_receipt_manager_box" name="query_read_receipt_manager" value="1" <%= "checked" if @the_message.read_receipt_manager %>>
+
+        <label for="read_receipt_manager_box">
+            Read receipt manager
+        </label>
+      </div>
+
+      <div>
+        <label for="reaction_user_box">
+          Reaction user
+        </label>
+
+        <input type="text" id="reaction_user_box" name="query_reaction_user" value="<%= @the_message.reaction_user %>">
+      </div>
+
+      <div>
+        <label for="reaction_manager_box">
+          Reaction manager
+        </label>
+
+        <input type="text" id="reaction_manager_box" name="query_reaction_manager" value="<%= @the_message.reaction_manager %>">
+      </div>
+
+      <button>
+        Update message
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
