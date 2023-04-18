@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_18_154505) do
+ActiveRecord::Schema.define(version: 2023_04_18_154737) do
+
+  create_table "agents", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "photo"
+    t.string "linkedin_url"
+    t.string "timezone"
+    t.string "organization_name"
+    t.string "about"
+    t.integer "messages_count"
+    t.integer "gigs_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"

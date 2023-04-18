@@ -1,4 +1,21 @@
 class ApplicationController < ActionController::Base
+  before_action(:load_current_agent)
+  
+  # Uncomment line 5 in this file and line 3 in AgentAuthenticationController if you want to force agents to sign in before any other actions.
+  # before_action(:force_agent_sign_in)
+  
+  def load_current_agent
+    the_id = session[:agent_id]
+    
+    @current_agent = Agent.where({ :id => the_id }).first
+  end
+  
+  def force_agent_sign_in
+    if @current_agent == nil
+      redirect_to("/agent_sign_in", { :notice => "You have to sign in first." })
+    end
+  end
+
   before_action(:load_current_user)
   
   # Uncomment line 5 in this file and line 3 in UserAuthenticationController if you want to force users to sign in before any other actions.
