@@ -1,0 +1,19 @@
+<h2>Request to <%= User.where({ :id => @the_gig.user_id }).first.first_name %></h2>
+
+<form action="/create_message" method="post">
+<label for="subject-box">
+Subject
+<input id="subject-box" value="<%= @the_gig.title %>" name="query_subject">
+<input id="user_id-box" value="<%= User.where({ :id => @the_gig.user_id }).first.id %>" type="hidden" name="query_user_id">
+<input id="agent_id-box" value="<%= @current_agent.id %>" type="hidden" name="query_agent_id">
+<input id="read_receipt_user-box" value="false" type="hidden" name="query_read_receipt_user">
+<input id="read_receipt_agent" value="false" type="hidden" name="query_read_receipt_manager">
+<input id="reaction_user-box" value="" type="hidden" name="query_reaction_user">
+<input id="reaction_agent-box" value="" type="hidden" name="query_reaction_manager">
+<input id="request-box" value="true" type="hidden" name="query_request_type">
+<input id="from_agent_id-box" value="<%= @current_agent.id %>" type="hidden" name="query_from_agent_id">
+<input id="owner-box" value="<%= @current_agent.first_name %>" type="hidden" name="query_owner">
+<br>
+<textarea id="content-box" value="<%= @the_gig.title %>" name="query_content">Hi <%= User.where({ :id => @the_gig.user_id }).first.first_name %>! I'd like to represent you on this gig!</textarea>
+<br>
+<button>Send Request</button>

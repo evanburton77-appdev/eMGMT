@@ -7,6 +7,99 @@
 </div>
 
 <hr>
+<% if @current_agent.present? %>
+
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Title
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Agent
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Industry
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_gigs.each do |a_gig| %>
+      <tr>
+        <td>
+          <%= a_gig.id %>
+        </td>
+
+        <td>
+          <%= a_gig.title %>
+        </td>
+
+        <td>
+          <%= User.where({ :id => a_gig.user_id }).first.first_name %>
+        </td>
+
+        <td>
+          <% if a_gig.agent_id.present? %>
+          <%= Agent.where({ :id => a_gig.agent_id }).first.first_name %>
+          <% else %>
+          Unsigned
+          <% end %>
+        </td>
+
+        <td>
+          <%= a_gig.description %>
+        </td>
+
+        <td>
+          <%= a_gig.industry %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_gig.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_gig.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/gigs/<%= a_gig.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<% else %>
 
 <div>
   <div>
@@ -63,6 +156,7 @@
 </div>
 
 <hr>
+
 <div>
   <div>
     <table border="1">
@@ -114,11 +208,15 @@
         </td>
 
         <td>
-          <%= a_gig.user_id %>
+          <%= User.where({ :id => a_gig.user_id }).first.first_name %>
         </td>
 
         <td>
-          <%= a_gig.agent_id %>
+          <% if a_gig.agent_id.present? %>
+          <%= Agent.where({ :id => a_gig.agent_id }).first.first_name %>
+          <% else %>
+          Unsigned
+          <% end %>
         </td>
 
         <td>
@@ -148,3 +246,4 @@
 </div>
 
 <hr>
+<% end %>

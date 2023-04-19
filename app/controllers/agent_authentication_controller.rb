@@ -6,20 +6,27 @@ class AgentAuthenticationController < ApplicationController
     render({ :template => "agent_authentication/sign_in.html.erb" })
   end
 
+  def show
+    agent_id = session.fetch("agent_id")
+    @the_agent = Agent.where({ :id => agent_id }).first
+
+    render({ :template => "agent_authentication/show.html.erb" })
+  end
+
   def create_cookie
     agent = Agent.where({ :email => params.fetch("query_email") }).first
-    
+
     the_supplied_password = params.fetch("query_password")
-    
+
     if agent != nil
       are_they_legit = agent.authenticate(the_supplied_password)
-    
+
       if are_they_legit == false
         redirect_to("/agent_sign_in", { :alert => "Incorrect password." })
       else
         session[:agent_id] = agent.id
-      
-        redirect_to("/", { :notice => "Signed in successfully." })
+
+        redirect_to("/agent_profile", { :notice => "Signed in successfully." })
       end
     else
       redirect_to("/agent_sign_in", { :alert => "No agent with that email address." })
@@ -55,13 +62,13 @@ class AgentAuthenticationController < ApplicationController
 
     if save_status == true
       session[:agent_id] = @agent.id
-   
-      redirect_to("/", { :notice => "Agent account created successfully."})
+
+      redirect_to("/", { :notice => "Agent account created successfully." })
     else
       redirect_to("/agent_sign_up", { :alert => @agent.errors.full_messages.to_sentence })
     end
   end
-    
+
   def edit_profile_form
     render({ :template => "agent_authentication/edit_profile.html.erb" })
   end
@@ -80,21 +87,20 @@ class AgentAuthenticationController < ApplicationController
     @agent.about = params.fetch("query_about")
     @agent.messages_count = params.fetch("query_messages_count")
     @agent.gigs_count = params.fetch("query_gigs_count")
-    
+
     if @agent.valid?
       @agent.save
 
-      redirect_to("/", { :notice => "Agent account updated successfully."})
+      redirect_to("/", { :notice => "Agent account updated successfully." })
     else
-      render({ :template => "agent_authentication/edit_profile_with_errors.html.erb" , :alert => @agent.errors.full_messages.to_sentence })
+      render({ :template => "agent_authentication/edit_profile_with_errors.html.erb", :alert => @agent.errors.full_messages.to_sentence })
     end
   end
 
   def destroy
     @current_agent.destroy
     reset_session
-    
+
     redirect_to("/", { :notice => "Agent account cancelled" })
   end
- 
 end

@@ -17,6 +17,27 @@ class MessagesController < ApplicationController
     render({ :template => "messages/show.html.erb" })
   end
 
+  def create_request_message
+    the_message = Message.new
+    the_message.user_id = params.fetch("query_user_id")
+    the_message.agent_id = params.fetch("query_agent_id")
+    the_message.request_type = params.fetch("query_request_type")
+    the_message.content = params.fetch("query_content")
+    the_message.subject = params.fetch("query_subject")
+    the_message.read_receipt_user = params.fetch("query_read_receipt_user", false)
+    the_message.read_receipt_manager = params.fetch("query_read_receipt_manager", false)
+    the_message.reaction_user = params.fetch("query_reaction_user")
+    the_message.reaction_manager = params.fetch("query_reaction_manager")
+    the_message.owner = params.fetch("query_owner")
+
+    if the_message.valid?
+      the_message.save
+      redirect_to("/messages", { :notice => "Message created successfully." })
+    else
+      redirect_to("/messages", { :alert => the_message.errors.full_messages.to_sentence })
+    end
+  end
+
   def create
     the_message = Message.new
     the_message.user_id = params.fetch("query_user_id")
@@ -51,7 +72,7 @@ class MessagesController < ApplicationController
 
     if the_message.valid?
       the_message.save
-      redirect_to("/messages/#{the_message.id}", { :notice => "Message updated successfully."} )
+      redirect_to("/messages/#{the_message.id}", { :notice => "Message updated successfully." })
     else
       redirect_to("/messages/#{the_message.id}", { :alert => the_message.errors.full_messages.to_sentence })
     end
@@ -63,6 +84,6 @@ class MessagesController < ApplicationController
 
     the_message.destroy
 
-    redirect_to("/messages", { :notice => "Message deleted successfully."} )
+    redirect_to("/messages", { :notice => "Message deleted successfully." })
   end
 end

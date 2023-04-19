@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_18_155253) do
+ActiveRecord::Schema.define(version: 2023_04_19_161818) do
 
   create_table "agents", force: :cascade do |t|
     t.string "email"
@@ -49,6 +49,9 @@ ActiveRecord::Schema.define(version: 2023_04_18_155253) do
     t.string "reaction_manager"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "request_type"
+    t.integer "from_agent_id"
+    t.string "owner"
   end
 
   create_table "users", force: :cascade do |t|

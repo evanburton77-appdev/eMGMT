@@ -19,15 +19,15 @@
       </div>
       <div>
         <label for="photo_box">Photo</label>
-        <input id="photo_box" name="query_photo" value="<%= @current_user.photo %>">
+        <input id="photo_box" type="text" name="query_photo" value="<%= @current_user.photo %>">
       </div>
       <div>
         <label for="timezone_box">Timezone</label>
         <input id="timezone_box" name="query_timezone" value="<%= @current_user.timezone %>">
       </div>
       <div>
-        <label for="about_box">About</label>
-        <input id="about_box" name="query_about" value="<%= @current_user.about %>">
+        <label for="about_box">About me</label>
+        <textarea id="about_box" name="query_about"><%= @current_user.about %></textarea>
       </div>
       <div>
         <label for="messages_count_box">Messages count</label>

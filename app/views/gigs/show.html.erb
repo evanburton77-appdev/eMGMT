@@ -1,44 +1,36 @@
 <div>
   <div>
     <h1>
-      Gig #<%= @the_gig.id %> details
+      <%= @the_gig.title %> Gig
     </h1>
 
     <div>
       <div>
-        <a href="/gigs">
+      <% if @current_agent.present? %>
+      <a href="/gigs">
           Go back
         </a>
+        <% else %>
+        <a href="/user_profile">
+          Go back
+        </a>
+        <% end %>
       </div>
 
-      <div>
-        <a href="/delete_gig/<%= @the_gig.id %>">
-          Delete gig
-        </a>
-      </div>
+      
     </div>
 
     <dl>
-      <dt>
-        Title
-      </dt>
-      <dd>
-        <%= @the_gig.title %>
-      </dd>
+     
 
       <dt>
         User
       </dt>
       <dd>
-        <%= @the_gig.user_id %>
+        <%= User.where({ :id => @the_gig.user_id}).first.first_name %>
       </dd>
 
-      <dt>
-        Agent
-      </dt>
-      <dd>
-        <%= @the_gig.agent_id %>
-      </dd>
+      
 
       <dt>
         Description
@@ -55,24 +47,28 @@
       </dd>
 
       <dt>
-        Created at
+        Agent
+      </dt>
+      <dd>
+        <%= @the_gig.agent_id %>
+      </dd>
+
+      <dt>
+        Created
       </dt>
       <dd>
         <%= time_ago_in_words(@the_gig.created_at) %> ago
       </dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_gig.updated_at) %> ago
-      </dd>
+ 
     </dl>
   </div>
 </div>
 
 <hr>
+<% if @current_agent.present? %>
 
+<% else %>
 
 <div>
   <div>
@@ -129,3 +125,17 @@
 </div>
 
 <hr>
+<% end %>
+<div>
+
+<% if @current_agent.present? %>
+      <form action="/gigs/request_form/<%= @the_gig.id %>">
+          <button> Request to be hired </button>
+        </form>
+        <% else %>
+        <a href="/delete_gig/<%= @the_gig.id %>">
+          Delete gig
+        </a>
+        <% end %>
+
+      </div>

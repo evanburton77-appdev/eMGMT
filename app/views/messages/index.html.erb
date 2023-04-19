@@ -6,83 +6,219 @@
   </div>
 </div>
 
-<hr>
 
+
+
+
+<% if @current_user.present? %>
+<% @list_of_messages.where({ :user_id => @current_user.id }).each_with_index do |message, index| %>
+
+<% if index < @list_of_messages.where({ :user_id => @current_user.id }).distinct.count('subject') %>
+<div class="row justify-content-center mb-3">
+  <div class="col-md-8">
+    <hr>
+    <h4 class="mb-4">Conversations</h4>
+
+        <div class="card mb-4">
+          <h5 class="card-header d-flex justify-content-between">
+            <div>
+              With <%= User.where({ :id => message.user_id }).first.first_name %> about <a href="/gigs/<%= Gig.where({ :title => message.subject }).first.id %>"><%= message.subject %></a>
+            </div>
+
+          </h5>
+
+          <ul class="list-group list-group-flush">
+          <% Message.where({ :subject => message.subject }).each do |filtered_message| %>
+              <li class="list-group-item">
+                  <span class="badge badge-secondary">
+                    <%= filtered_message.owner %>
+                  </span>
+                
+                <p><%= filtered_message.content %></p>
+              </li>
+              <% end %>
+            <li class="list-group-item">
+              <form class="mb-3" action="/create_message" accept-charset="UTF-8" method="post">
+<input id="subject-box" type="hidden" value="<%= message.subject %>" name="query_subject">
+<input id="user_id-box" value="<%= message.user_id %>" type="hidden" name="query_user_id">
+<input id="agent_id-box" value="<%= message.agent_id %>" type="hidden" name="query_agent_id">
+<input id="read_receipt_user-box" value="false" type="hidden" name="query_read_receipt_user">
+<input id="read_receipt_agent" value="false" type="hidden" name="query_read_receipt_manager">
+<input id="reaction_user-box" value="" type="hidden" name="query_reaction_user">
+<input id="reaction_agent-box" value="" type="hidden" name="query_reaction_manager">
+<input id="request-box" value="true" type="hidden" name="query_request_type">
+<input id="from_agent_id-box" value="<%= message.agent_id %>" type="hidden" name="query_from_agent_id">
+<% if @current_agent.present? %>
+<input id="owner-box" value="<%= @current_agent.first_name %>" 
+ type="hidden" name="query_owner">
+ <% else %>
+ <input id="owner-box" value="<%= @current_user.first_name %>" type="hidden" name="query_owner">
+ <% end %>
+<br>                <div class="form-group">
+
+
+                  <label class="sr-only" for="message_body"></label>
+                  <textarea class="form-control" placeholder="Respond to <%= Agent.where({ :id => message.agent_id }).first.first_name %>" name="query_content" id="query_content">
+</textarea>
+                </div>
+                <button name="button" type="submit" class="btn btn-outline-secondary btn-block">Send</button>
+</form>            </li>
+          </ul>
+        </div>
+        <% end %>
+<% end %>
+<% elsif @current_agent.present? %>
+<% @list_of_messages.where({ :agent_id => @current_agent.id }).each_with_index do |message, index| %>
+<% if index < @list_of_messages.where({ :agent_id => @current_agent.id }).distinct.count('subject')  %>
+<div class="row justify-content-center mb-3">
+  <div class="col-md-8">
+    <hr>
+    <h4 class="mb-4">Conversations</h4>
+
+        <div class="card mb-4">
+          <h5 class="card-header d-flex justify-content-between">
+            <div>
+              With <%= User.where({ :id => message.user_id }).first.first_name %> about <a href="/gigs/<%= Gig.where({ :title => message.subject }).first.id %>"><%= message.subject %></a>
+            </div>
+
+          </h5>
+
+          <ul class="list-group list-group-flush">
+          <% Message.where({ :subject => message.subject }).each do |filtered_message| %>
+              <li class="list-group-item">
+                  <span class="badge badge-secondary">
+                    <%= filtered_message.owner %>
+                  </span>
+                
+                <p><%= filtered_message.content %></p>
+              </li>
+              <% end %>
+            <li class="list-group-item">
+              <form class="mb-3" action="/create_message" accept-charset="UTF-8" method="post">
+<input id="subject-box" type="hidden" value="<%= message.subject %>" name="query_subject">
+<input id="user_id-box" value="<%= message.user_id %>" type="hidden" name="query_user_id">
+<input id="agent_id-box" value="<%= message.agent_id %>" type="hidden" name="query_agent_id">
+<input id="read_receipt_user-box" value="false" type="hidden" name="query_read_receipt_user">
+<input id="read_receipt_agent" value="false" type="hidden" name="query_read_receipt_manager">
+<input id="reaction_user-box" value="" type="hidden" name="query_reaction_user">
+<input id="reaction_agent-box" value="" type="hidden" name="query_reaction_manager">
+<input id="request-box" value="true" type="hidden" name="query_request_type">
+<input id="from_agent_id-box" value="<%= message.agent_id %>" type="hidden" name="query_from_agent_id">
+<% if @current_agent.present? %>
+<input id="owner-box" value="<%= @current_agent.first_name %>" 
+ type="hidden" name="query_owner">
+ <% else %>
+ <input id="owner-box" value="<%= @current_user.first_name %>" type="hidden" name="query_owner">
+ <% end %>
+<br>                <div class="form-group">
+
+
+                  <label class="sr-only" for="message_body"></label>
+                  <textarea class="form-control" placeholder="Respond to <%= User.where({ :id => message.user_id }).first.first_name %>" name="query_content" id="query_content">
+</textarea>
+                </div>
+                <button name="button" type="submit" class="btn btn-outline-secondary btn-block">Send</button>
+</form>            </li>
+          </ul>
+        </div>
+        <% end %>
+<% end %>
+<% else %>
+No messages.
+<% end %>
+<hr>
+<% if @current_agent.present? %>
 <div>
   <div>
-    <h2>
-      Add a new message
-    </h2>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
 
-    <form action="/insert_message" method="post">
-      <div>
-        <label for="user_id_box">
+        <th>
           User
-        </label>
+        </th>
 
-        <input type="text" id="user_id_box" name="query_user_id">
-      </div>
 
-      <div>
-        <label for="agent_id_box">
-          Agent
-        </label>
-
-        <input type="text" id="agent_id_box" name="query_agent_id">
-      </div>
-
-      <div>
-        <label for="content_box">
-          Content
-        </label>
-
-        <input type="text" id="content_box" name="query_content">
-      </div>
-
-      <div>
-        <label for="subject_box">
+        <th>
           Subject
-        </label>
+        </th>
+        
+        <th>
+          Content
+        </th>
 
-        <input type="text" id="subject_box" name="query_subject">
-      </div>
 
-      <div>
-        <input type="checkbox" id="read_receipt_user_box" name="query_read_receipt_user" value="1">
 
-        <label for="read_receipt_user_box">Read receipt user</label>
-      </div>
+        <th>
+          Read Receipt
+        </th>
 
-      <div>
-        <input type="checkbox" id="read_receipt_manager_box" name="query_read_receipt_manager" value="1">
+        <th>
+          Reaction
+        </th>
 
-        <label for="read_receipt_manager_box">Read receipt manager</label>
-      </div>
+        <th>
+          Created at
+        </th>
 
-      <div>
-        <label for="reaction_user_box">
-          Reaction user
-        </label>
+        <th>
+          Updated at
+        </th>
 
-        <input type="text" id="reaction_user_box" name="query_reaction_user">
-      </div>
+        <th>
+        </th>
+      </tr>
 
-      <div>
-        <label for="reaction_manager_box">
-          Reaction manager
-        </label>
+      <% @list_of_messages.where({ :agent_id => @current_agent.id }).each do |a_message| %>
+      <tr>
+        <td>
+          <%= a_message.id %>
+        </td>
 
-        <input type="text" id="reaction_manager_box" name="query_reaction_manager">
-      </div>
+        <td>
+          <%= User.where({ :id => a_message.user_id }).first.first_name %>
+        </td>
 
-      <button>
-        Create message
-      </button>
-    </form>
+        <td>
+          <%= a_message.subject %>
+        </td>
+
+        <td>
+          <%= a_message.content %>
+        </td>
+
+
+        <td>
+          <%= a_message.read_receipt_user %>
+        </td>
+
+        <td>
+          <%= a_message.reaction_user %>
+        </td>
+
+
+        <td>
+          <%= time_ago_in_words(a_message.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_message.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/messages/<%= a_message.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
   </div>
 </div>
 
-<hr>
+<% else %>
+
 <div>
   <div>
     <table border="1">
@@ -135,7 +271,7 @@
         </th>
       </tr>
 
-      <% @list_of_messages.each do |a_message| %>
+      <% @list_of_messages.where({ :user_id => @current_user.id }).each do |a_message| %>
       <tr>
         <td>
           <%= a_message.id %>
@@ -186,9 +322,6 @@
           </a>
         </td>
       </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
-
+<% end %>
+<% end %>
 <hr>

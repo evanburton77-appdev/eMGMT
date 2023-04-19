@@ -1,0 +1,49 @@
+<div>
+  <div>
+    <h2>
+      Add a new gig
+    </h2>
+
+    <form action="/insert_gig" method="post">
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title">
+      </div>
+
+
+        <input type="hidden" id="user_id_box" value="<%= @current_user.id %>" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <textarea type="text" id="description_box" name="query_description"></textarea>
+      </div>
+
+ 
+  <div>
+    <label for="industry_box">Industry (*)</label>
+      
+   
+    <select name="query_industry" id="industry_box">
+  <option value="Actor">Actor</option>
+  <option value="Vocalist">Vocalist</option>
+  <option value="Instrumentalist">Instrumentalist</option>
+  <option value="Pro_Athlete">Professional Athlete</option>
+  <option value="Influencer">Influencer</option>
+  <option value="Radio">Radio Host</option>
+  <option value="Writer">Writer</option>
+</select>
+  </div>
+
+      <button>
+        Create gig
+      </button>
+    </form>
+  </div>
+</div>

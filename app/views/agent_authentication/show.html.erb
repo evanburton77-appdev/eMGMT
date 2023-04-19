@@ -1,0 +1,76 @@
+<div>
+  <div>
+    <h1>
+       <%= @the_agent.first_name %>'s Profile
+    </h1>
+
+    <div>
+      <div>
+        <a href="/">
+          Go back
+        </a>
+      </div>
+
+    <img src="<%= @the_agent.photo %>">
+
+    <dl>
+
+       <dt>
+        Gig(s)
+      </dt>
+      <dd>
+        <% if Gig.all.where({ :agent_id => @the_agent.id }).present? %>
+        <% Gig.all.where({ :agent_id => @the_agent.id }).each do |a_gig| %>
+        <ul>
+        <li><a href="/gigs/<%= a_gig.id %>"><%= a_gig.title %></a></li>
+        </ul>
+        <% end %>
+        <% else %>
+        No gigs yet.
+        <% end %>
+      </dd>
+
+      <dt>
+        Client(s)
+      </dt>
+      <dd>
+        <% if Gig.all.where({ :agent_id => @the_agent.id }).present? && Gig.all.where({ :agent_id => @the_agent.id }).first.agent_id.present? %>
+        <%= User.where({ :id => Gig.all.where({ :agent_id => @the_agent.id }).agent_id }).first.first_name %>
+        <% else %>
+        None so far. 
+        <% end %>
+      </dd>
+
+      <dt>
+        Biography
+      </dt>
+      <dd>
+        <%= @the_agent.about %>
+      </dd>
+
+      
+
+      <dt>
+        Member since
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_agent.created_at) %> ago
+      </dd>
+
+
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      <a href="/edit_agent_profile">Edit profile</a>
+    </h2>
+<hr>
+<h2><a href="/gigs">Find a gig</a></h2>
+<hr>
+<h2><a href="/messages">Messages (<%= Message.all.where({:agent_id => @current_agent.id}).count %>)</a></h2>
