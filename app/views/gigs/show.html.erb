@@ -27,7 +27,7 @@
         User
       </dt>
       <dd>
-        <%= User.where({ :id => @the_gig.user_id}).first.first_name %>
+        <a href=""><%= User.where({ :id => @the_gig.user_id}).first.first_name %></a>
       </dd>
 
       
@@ -130,7 +130,7 @@
 
 <% if @current_agent.present? %>
       <form action="/gigs/request_form/<%= @the_gig.id %>">
-          <button> Request to be hired </button>
+          <button> Message <%= User.where({ :id => @the_gig.user_id }).first.first_name %></button>
         </form>
         <% else %>
         <a href="/delete_gig/<%= @the_gig.id %>">

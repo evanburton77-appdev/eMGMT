@@ -1,17 +1,26 @@
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+</head>
+
+<style>
+  .banner-image{
+    width: 128px;
+    height: 128px;
+    border-radius: 128px;
+    z-index:-1;
+    position: relative;
+  }
+</style>
+
 <div>
   <div>
     <h1>
-       <%= @the_user.first_name %>'s Profile
+       <%= @the_user.first_name %> <%= @the_user.last_name %>'s Profile
     </h1>
 
-    <div>
-      <div>
-        <a href="/">
-          Go back
-        </a>
-      </div>
+  
 
-    <img src="<%= @the_user.photo %>">
+    <img src="<%= @the_user.photo %>" class="banner-image">
 
     <dl>
 
@@ -64,7 +73,7 @@
 
 <hr>
 
-
+<% if @current_user.present? %>
 <div>
   <div>
     <h2>
@@ -74,3 +83,6 @@
 <h2><a href="/create_gig">Create a gig</a></h2>
 <hr>
 <h2><a href="/messages">Messages (<%= Message.all.where({:user_id => @current_user.id}).count %>)</a></h2>
+<% else %>
+
+<% end %>

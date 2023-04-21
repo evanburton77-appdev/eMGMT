@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
   # EDIT PROFILE FORM
   get("/edit_agent_profile", { :controller => "agent_authentication", :action => "edit_profile_form" })
-  get("/agent_profile", { :controller => "agent_authentication", :action => "show" })
+  get("/agent_profile/:id", { :controller => "agent_authentication", :action => "show" })
   # UPDATE RECORD
   post("/modify_agent", { :controller => "agent_authentication", :action => "update" })
 
@@ -78,7 +78,7 @@ Rails.application.routes.draw do
 
   # EDIT PROFILE FORM
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })
-  get("/user_profile", { :controller => "user_authentication", :action => "show" })
+  get("/user_profile/:id", { :controller => "user_authentication", :action => "show" })
   # UPDATE RECORD
   post("/modify_user", { :controller => "user_authentication", :action => "update" })
 

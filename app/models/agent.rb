@@ -23,4 +23,5 @@ class Agent < ApplicationRecord
   has_secure_password
   has_many(:messages, { :class_name => "Message", :foreign_key => "agent_id", :dependent => :destroy })
   has_many(:gigs, { :class_name => "Gig", :foreign_key => "agent_id", :dependent => :destroy })
+  mount_uploader :photo, PhotoUploader
 end

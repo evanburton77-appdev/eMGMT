@@ -4,7 +4,7 @@
   </h5>
 
   <div>
-    <form action="/modify_agent" method="post">
+    <form action="/modify_agent" enctype="multipart/form-data" method="post">
       <div>
         <label for="email_box">Email</label>
         <input id="email_box" name="query_email" value="<%= @current_agent.email %>">
@@ -19,7 +19,7 @@
       </div>
       <div>
         <label for="photo_box">Photo</label>
-        <input id="photo_box" name="query_photo" value="<%= @current_agent.photo %>">
+        <input id="photo_box" type="file" name="query_photo" value="<%= @current_agent.photo %>">
       </div>
       <div>
         <label for="linkedin_url_box">Linkedin url</label>

@@ -19,7 +19,7 @@ class UserAuthenticationController < ApplicationController
       else
         session[:user_id] = user.id
 
-        redirect_to("/user_profile", { :notice => "Signed in successfully." })
+        redirect_to("/user_profile/" + user.id.to_s, { :notice => "Signed in successfully." })
       end
     else
       redirect_to("/user_sign_in", { :alert => "No user with that email address." })
@@ -37,7 +37,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def show
-    user_id = session.fetch("user_id")
+    user_id = params.fetch("id")
     @the_user = User.where({ :id => user_id }).first
 
     render({ :template => "user_authentication/show.html.erb" })
@@ -60,7 +60,7 @@ class UserAuthenticationController < ApplicationController
     if save_status == true
       session[:user_id] = @user.id
 
-      redirect_to("/", { :notice => "User account created successfully." })
+      redirect_to("/user_profile/" + @user.id.to_s, { :notice => "User account created successfully." })
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
     end
@@ -85,7 +85,7 @@ class UserAuthenticationController < ApplicationController
     if @user.valid?
       @user.save
 
-      redirect_to("/", { :notice => "User account updated successfully." })
+      redirect_to("/user_profile/" + @user.id.to_s, { :notice => "User account updated successfully." })
     else
       render({ :template => "user_authentication/edit_profile_with_errors.html.erb", :alert => @user.errors.full_messages.to_sentence })
     end

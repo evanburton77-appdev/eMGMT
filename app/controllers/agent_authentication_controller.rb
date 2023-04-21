@@ -26,7 +26,7 @@ class AgentAuthenticationController < ApplicationController
       else
         session[:agent_id] = agent.id
 
-        redirect_to("/agent_profile", { :notice => "Signed in successfully." })
+        redirect_to("/agent_profile/" + agent.id.to_s, { :notice => "Signed in successfully." })
       end
     else
       redirect_to("/agent_sign_in", { :alert => "No agent with that email address." })
@@ -63,7 +63,7 @@ class AgentAuthenticationController < ApplicationController
     if save_status == true
       session[:agent_id] = @agent.id
 
-      redirect_to("/", { :notice => "Agent account created successfully." })
+      redirect_to("/agent_profile/" + @agent.id.to_s, { :notice => "Agent account created successfully." })
     else
       redirect_to("/agent_sign_up", { :alert => @agent.errors.full_messages.to_sentence })
     end
@@ -91,7 +91,7 @@ class AgentAuthenticationController < ApplicationController
     if @agent.valid?
       @agent.save
 
-      redirect_to("/", { :notice => "Agent account updated successfully." })
+      redirect_to("/agent_profile/" + @agent.id.to_s, { :notice => "Agent account updated successfully." })
     else
       render({ :template => "agent_authentication/edit_profile_with_errors.html.erb", :alert => @agent.errors.full_messages.to_sentence })
     end

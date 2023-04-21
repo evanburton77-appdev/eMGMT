@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   def index
     matching_messages = Message.all
 
-    @list_of_messages = matching_messages.order({ :created_at => :desc })
+    @list_of_messages = matching_messages.order({ :user_id => :desc, :agent_id => :desc })
 
     render({ :template => "messages/index.html.erb" })
   end

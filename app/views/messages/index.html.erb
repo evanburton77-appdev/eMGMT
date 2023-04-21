@@ -13,7 +13,7 @@
 <% if @current_user.present? %>
 <% @list_of_messages.where({ :user_id => @current_user.id }).each_with_index do |message, index| %>
 
-<% if index < @list_of_messages.where({ :user_id => @current_user.id }).distinct.count('subject') %>
+<% if index < @list_of_messages.where({ :user_id => @current_user.id }).distinct.count('agent_id') %>
 <div class="row justify-content-center mb-3">
   <div class="col-md-8">
     <hr>
@@ -69,7 +69,7 @@
 <% end %>
 <% elsif @current_agent.present? %>
 <% @list_of_messages.where({ :agent_id => @current_agent.id }).each_with_index do |message, index| %>
-<% if index < @list_of_messages.where({ :agent_id => @current_agent.id }).distinct.count('subject')  %>
+<% if index < @list_of_messages.where({ :agent_id => @current_agent.id }).distinct.count('user_id')  %>
 <div class="row justify-content-center mb-3">
   <div class="col-md-8">
     <hr>
